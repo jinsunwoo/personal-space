@@ -3,7 +3,53 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <!-- script for datepicker -->
+        <!-- 아래 네개 가져와야 함, datepicker-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+              rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+              rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        <script>
+            $(function () {
+                $('.datepicker').datepicker();
+
+            });
+
+        </script>
         <style>
+            .login_btn {
+                color: black;
+                background-color: lightgray;
+                width: 100px;
+                margin-top: 30px;
+                margin-right: 45px;
+            }
+
+            .login_btn:hover {
+                color: black;
+                background-color: white;
+            }
+
+            .image_btn {
+                color: black;
+                background-color: lightgray;
+                width: 100px;
+                margin-right: 1080px;
+                margin-top: 30px;
+
+            }
+
+            .image_btn:hover {
+                color: black;
+                background-color: white;
+            }
+
+            textarea {
+                font-size: 20px;
+            }
+
             html, body {
                 background-color: lightsteelblue;
             }
@@ -38,7 +84,7 @@
                 left: 0;
                 height: 25px;
                 width: 25px;
-                background-color: #eee;
+                background-color: white;
 
                 border-radius: 15px;
             }
@@ -50,7 +96,7 @@
 
             /* When the checkbox is checked, add a blue background */
             .container input:checked ~ .checkmark {
-                background-color: #2196F3;
+                background-color: steelblue;
             }
 
             /* Create the checkmark/indicator (hidden when not checked) */
@@ -81,90 +127,137 @@
             .emoji-today {
                 display: flex;
                 justify-content: center;
+                padding-top: 10px;
 
             }
 
             .emoji-field {
                 text-align: center;
+                padding: 0px 400px;
+                height: 120px;
+                margin: 0px 260px;
+                padding-top: 15px;
+
             }
 
             .datepicker-field {
-                background-color: #ff9b08;
-                height: 300px;
+                height: 130px;
+                padding: 0px 500px;
             }
 
             .empty-field {
-                height: 100px;
+                height: 95px;
+                background-color: steelblue;
             }
 
             .photo-field {
-                background-color: blueviolet;
-                height: 200px;
+                height: 450px;
+                padding-left: 450px;
             }
 
             .word-field {
                 height: 900px;
+                padding-top: 100px;
+                padding-left: 260px;
+
             }
 
-            .footer-field {
-                background-color: khaki;
-                height: 200px;
-            }
-            textarea {
-                width: 800px;
+
+            .diary-text {
+                width: 925px;
                 height: 700px;
-                margin-top: 100px;
-                margin-left: 300px;
+                padding: 10px;
+            }
+
+            {#style for datepicker#}
+            label {
+                margin-left: 20px;
+            }
+
+            #datepicker {
+                width: 180px;
+                margin: 0 20px 20px 20px;
+            }
+
+            #datepicker > span:hover {
+                cursor: pointer;
             }
         </style>
+
     </head>
     <body>
         <div class="empty-field">
+            <form>
+                <input type="submit" value="Save" formaction="#" class="btn float-right login_btn">
+            </form>
         </div>
         <div class="datepicker-field">
+            <br>
+            <h5>Select Date: </h5>
+            <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
         </div>
-        <div class="emoji-field">
-            <h3> Today I feel :</h3>
+        <div class="emoji-field jumbotron">
+            <h5> Today I feel :</h5>
             <div class="emoji-today">
-                <label class="container">😍&nbsp;&nbsp;
+                <label class="container"><h2>😍&nbsp;</h2>&nbsp;
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">😆&nbsp;&nbsp;
+                <label class="container"><h2>😆&nbsp;</h2>&nbsp;
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">🙂&nbsp;&nbsp;
+                <label class="container"><h2>🙂&nbsp;</h2>
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">🙁&nbsp;&nbsp;
+                <label class="container"><h2>🙁&nbsp;</h2>&nbsp;
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">😢&nbsp;&nbsp;
+                <label class="container"><h2>😢&nbsp;</h2>
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">😭&nbsp;&nbsp;
+                <label class="container"><h2>😭&nbsp;</h2>
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">😱&nbsp;&nbsp;
+                <label class="container"><h2>😱&nbsp;</h2>&nbsp;
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container">😡&nbsp;&nbsp;
+                <label class="container"><h2>😡&nbsp;</h2>
                     <input type="checkbox" checked="checked">
                     <span class="checkmark"></span>
                 </label>
             </div>
         </div>
+        <!--
         <div class="photo-field">
+            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                      style="display: none;"></p>
+            <p><label for="file" style="cursor: pointer;"><h5>Upload Image</h5></label></p>
+            <p><img id="output" width="500" height="350"/></p>
+
+            <script>
+                var loadFile = function (event) {
+                    var image = document.getElementById('output');
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                };
+            </script>
         </div>
+        -->
         <div class="word-field">
-            <textarea></textarea>
+            <textarea class="diary-text"></textarea>
         </div>
-        <div class="footer-field"></div>
+
+
+
     </body>
 </html>

@@ -38,7 +38,7 @@
 
             .login_btn {
                 color: black;
-                background-color: darkgrey;
+                background-color: steelblue;
                 width: 100px;
                 margin-top: 30px;
                 margin-right: 40px;
@@ -77,8 +77,8 @@
             }
 
             #chart {
-                max-width: 650px;
-                margin: 35px auto;
+                max-width: 1100px;
+                margin: 45px auto;
             }
         </style>
         <script>
@@ -158,78 +158,58 @@
                 var options = {
                     series: [
                         {
-                            name: "Metric1",
-                            data: generateData(18, {
+                            name: "Sat",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric2",
-                            data: generateData(18, {
+                            name: "Fri",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric3",
-                            data: generateData(18, {
+                            name: "Thurs",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric4",
-                            data: generateData(18, {
+                            name: "Wed",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric5",
-                            data: generateData(18, {
+                            name: "Tue",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric6",
-                            data: generateData(18, {
+                            name: "Mon",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                         {
-                            name: "Metric7",
-                            data: generateData(18, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Metric8",
-                            data: generateData(18, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Metric9",
-                            data: generateData(18, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Metric10",
-                            data: generateData(18, {
+                            name: "Sun",
+                            data: generateData(52, {
                                 min: 0,
                                 max: 90,
                             }),
                         },
                     ],
                     chart: {
-                        height: 350,
+                        height: 220,
+                        width: 1000,
                         type: "heatmap",
                     },
                     dataLabels: {

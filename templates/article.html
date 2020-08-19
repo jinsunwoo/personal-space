@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" id="row_style">
+                <h4 class="text-xs-center">Submit new post</h4>
+                <div class="col-md-4   offset-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+                    <textarea id="editor" cols="30" rows="10">Submit your text post here...</textarea>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Tags">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="submit">Submit new post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            #row_style {
+                margin-top: 30px;
+            }
+
+            #submit {
+                display: block;
+                margin: auto;
+            }
+        </style>
+
+        <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+        <link rel="stylesheet" type="text/css"
+              href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
+        <script type="text/javascript"
+                src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+        <script>
+            $(function () {
+                $("#editor").shieldEditor({
+                    height: 260
+                });
+            })
+        </script>
+
+
+    </body>
+</html>
