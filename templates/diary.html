@@ -7,51 +7,16 @@
             html, body {
                 background-color: lightsteelblue;
             }
-
-            .sample-validation {
-
-
+            .header-box {
+                background-color: steelblue;
+                height: 95px;
+                margin-top: 0px;
             }
         </style>
-        <!--script for datepicker-->
-        <script>
-            $(document).ready(function () {
-                $('#mydate').datepicker({
-                    todayHighlight: true,
-                    orientation: "bottom left",
-                    format: "mm/dd/yy",
-                    container: ".bdc"
-                    //container: console.log($(this).datepicker())
-                });
-
-
-            });
-        </script>
     </head>
     <body>
-        <br>
-        <div class="form-group" style="width:50%;">
-
-            <label for="mydate">Calendar date:</label>
-            <div style="position:relative">
-                <input id="mydate" type="text" class="form-control" data-date-format="dd/mm/yyyy"
-                       placeholder="Select a Date">
-                <span style="font-size: 20px;
-    				position: absolute;
-				  	pointer-events: none;
-   			 		top: 6px;
-   					right: 2%;"
-                      class="glyphicon glyphicon-calendar"></span>
-
-                <!-- 		  	  <span class="alert alert-danger sample-validation">a very very long error message</span> -->
-
-
-            </div>
-
-
+        <div class="header-box">
         </div>
-
-        <div class="bdc" style="position:relative"></div>
-
+        
     </body>
 </html>
