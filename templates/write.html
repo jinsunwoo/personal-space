@@ -24,17 +24,20 @@
                     // post-box를 가리고
                     $('#post-box').hide();
                     // 다시 버튼을 클릭하면, 박스 열기를 할 수 있게 텍스트 바꿔두기
-                    $('#btn-post-box').text('+Image');
+                    $('#imgBtn').value('+Image');
                 } else {
                     // 아니면(눈에 보이지 않으면) post-box를 펴라
                     $('#post-box').show();
                     // 다시 버튼을 클릭하면, 박스 닫기를 할 수 있게 텍스트 바꿔두기
-                    $('#btn-post-box').text('-Image');
+                    $('#imgBtn').value('-Image');
                 }
             }
 
         </script>
         <style>
+            #imgBtn {
+
+            }
             .plus-image-btn {
                 width: 950px;
                 height: 70px;
@@ -285,7 +288,7 @@
         </div>
         <div class="plus-image-btn">
             <form>
-                <input value="+ Image" onclick="openClose()" class="btn login_btn">
+                <input id="imgBtn" value="+ Image" onclick="openClose()" class="btn login_btn">
             </form>
         </div>
         <div id="post-box" class="form-post" style="display:none">
