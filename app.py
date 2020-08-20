@@ -1,12 +1,10 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
-from pymongo import MongoClient
-
 client = MongoClient('localhost', 27017)
-db = client.dbhomework
-
+db = client.dbpersonalspace # dbpersonalspace 라는 이름의 db 만듬
 
 ## HTML 화면 보기
 @app.route('/')

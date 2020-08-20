@@ -18,8 +18,37 @@
 
             });
 
+            function openClose() {
+                // id 값 post-box의 display 값이 block 이면(= 눈에 보이면)
+                if ($('#post-box').css('display') == 'block') {
+                    // post-box를 가리고
+                    $('#post-box').hide();
+                    // 다시 버튼을 클릭하면, 박스 열기를 할 수 있게 텍스트 바꿔두기
+                    $('#btn-post-box').text('+Image');
+                } else {
+                    // 아니면(눈에 보이지 않으면) post-box를 펴라
+                    $('#post-box').show();
+                    // 다시 버튼을 클릭하면, 박스 닫기를 할 수 있게 텍스트 바꿔두기
+                    $('#btn-post-box').text('-Image');
+                }
+            }
+
         </script>
         <style>
+            .plus-image-btn {
+                width: 950px;
+                height: 70px;
+                margin-top: 10px;
+                margin-left: 270px;
+            }
+            #post-box {
+                display: flex;
+                margin-left: 255px;
+                width: 935px;
+                height: 400px;
+                margin-top: 20px;
+            }
+
             .login_btn {
                 color: black;
                 background-color: lightgray;
@@ -152,8 +181,10 @@
             }
 
             .photo-field {
-                height: 450px;
-                padding-left: 450px;
+                width: 500px;
+                height: 400px;
+                margin: auto;
+                background-color: #fff0c3;
             }
 
             .word-field {
@@ -191,6 +222,10 @@
 
             #datepicker > span:hover {
                 cursor: pointer;
+            }
+            .photo-space {
+                margin-left: 80px;
+                background-color: lightgray;
             }
         </style>
 
@@ -248,6 +283,23 @@
                 </label>
             </div>
         </div>
+        <div class="plus-image-btn">
+            <form>
+                <input value="+ Image" onclick="openClose()" class="btn login_btn">
+            </form>
+        </div>
+        <div id="post-box" class="form-post" style="display:none">
+            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                          style="display: none;"></p>
+            <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+                <script>
+                    var loadFile = function (event) {
+                        var image = document.getElementById('output');
+                        image.src = URL.createObjectURL(event.target.files[0]);
+                    };
+                </script>
+            <img class="photo-space" id="output" width="600px" height="400px" />
+        </div>
         <div class="richtext">
             <div class="rich-icons">
                 <button onclick="execCmd('bold');"><i class="fa fa-bold"></i></button>
@@ -281,8 +333,12 @@
                 Background: <input type="color" onchange="execCommandWithArg('hiliteColor',this.value);">
                 <button onclick="execCommandWithArg('insertImage',prompt('Enter the image URL',''));"><i
                         class="fa fa-file-image-o"></i></button>
+
+
+
+
             </div>
-            <iframe name="richTextField" style="width: 930px; height: 500px; background-color: #dddddd"></iframe>
+            <iframe name="richTextField" style="padding: 10px; width: 930px; height: 500px; background-color: #dddddd"></iframe>
         </div>
         <br>
         <br>
@@ -302,26 +358,6 @@
             }
 
         </script>
-
-        <!--
-        <div class="photo-field">
-            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                      style="display: none;"></p>
-            <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
-             <p><img id="output"/></p>
-
-            <script>
-                var loadFile = function (event) {
-                    var image = document.getElementById('output');
-                    image.src = URL.createObjectURL(event.target.files[0]);
-                };
-            </script>
-        </div>
-
-        <div class="word-field">
-            <textarea class="diary-text"></textarea>
-        </div>
-        -->
 
 
     </body>

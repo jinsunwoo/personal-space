@@ -126,7 +126,7 @@
             </div>
             <div class="menu-buttons">
                 <form>
-                    <input type="submit" value="Logout" formaction="main.html" class="btn float-right login_btn">
+                    <input type="submit" value="Logout" formaction="{{ url_for('loginpage') }}" class="btn float-right login_btn">
                 </form>
                 <form>
                     <input type="submit" value="Diary" formaction="{{ url_for('readDiary') }}" class="btn float-right login_btn">
