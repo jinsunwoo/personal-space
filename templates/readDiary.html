@@ -105,37 +105,127 @@
 
             .nextBtn {
             }
+
             .prevBtn {
                 margin-left: 50px;
             }
+
             .datemoji {
                 background-color: #dddddd;
                 width: 930px;
                 height: 90px;
                 margin-left: 250px;
+
                 padding-top: 20px;
                 display: flex;
 
             }
-            h1{
+
+            h1 {
                 padding-left: 280px;
             }
-            .edit{
-                margin-left: 30px;
+
+            .edit {
                 margin-top: 7px;
+                margin-left: 20px;
                 color: black;
 
             }
-            .delete{
-                margin-left: 230px;
+
+            .delete {
+                margin-left: 190px;
                 margin-top: 7px;
 
             }
-            h7{
+
+            #date-and-emoji {
+                text-align: center;
+            }
+
+            h7 {
                 color: black;
             }
+
 
         </style>
+
+        <script>
+            $(document).ready(function () {
+                $("#diary-field").html("");
+                showDiaries();
+            });
+
+            function showDiaries() {
+                $.ajax({
+                    type: "GET",
+                    url: "/readAll",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert("works fine")
+                            let diaries = response["diaries"];
+                            for (let i = 0; i < diaries.length; i++) {
+                                let date = diaries[i]['date'];
+                                let emoji = diaries[i]['emotion'];
+                                let words = diaries[i]['diary'];
+                                makeDiary(date,emoji,words);
+
+                            }
+                        } else {
+                            alert("다이어리 리스트를 받아오지 못함");
+                        }
+                    }
+                })
+            }
+
+            function makeDiary(date, emotion, words) {
+                let tempHtml = ` <div class="datemoji">
+                <div class="edit">
+                    <a href="#" onclick="test();">
+                        <h7>Edit</h7>
+                    </a>
+                </div>
+                <h1 id="date-and-emoji">${date} ${emotion}</h1>
+                <div class="delete">
+                    <a href="#" onclick="deleteDiary('${date}','${emotion}');">
+                        <h7>Delete</h7>
+                    </a>
+                </div>
+            </div>
+            <div class="jumbotron diary-field" id="diary-box">
+                ${words}
+            </div>
+            <br>
+            <br>
+            <br>`;
+                $('#diary-field').append(tempHtml);
+            }
+
+
+
+            function deleteDiary(date,emotion,words) {
+                {#console.log(date);
+                console.log(emotion);#}
+                $.ajax({
+                    type: "POST",
+                    url: "/deleteDiary",
+                    data: {'date_give': date, 'emotion_give': emotion},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
+                            alert('삭제 완료! 안녕!')
+                            // 3. 변경된 정보를 반영하기 위해 새로고침합니다.
+                            window.location.reload()
+                        } else {
+                            alert('works bad')
+                        }
+                    }
+                });
+            }
+
+
+
+        </script>
 
     </head>
     <body>
@@ -145,27 +235,32 @@
                        id="mainBtn">
             </form>
         </div>
-        <div class="buttons-field">
-            <div class="nextBtn">
-                <a href="#" class="prevnext round">&#8249;</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div id="diary-field">
+            <div class="datemoji">
+                <div class="edit">
+                    <a href="#">
+                        <h7>Edit</h7>
+                    </a>
+                </div>
+                <h1 id="date-and-emoji">08/30/2020  🙂</h1>
+                <div class="delete">
+                    <a href="#">
+                        <h7>Delete</h7>
+                    </a>
+                </div>
             </div>
-            <div class="prevBtn">
-                <a href="#" class="prevnext round">&#8250;</a>
+            <div class="jumbotron diary-field" id="diary-box">
+                hihihi
             </div>
+            <br>
+            <br>
+            <br>
         </div>
-        <div class="datemoji">
 
-            <div class="edit">
-                <a href="#"><h7>Edit</h7></a>
-            </div>
-            <h1>20.08.20 😀</h1>
-           <div class="delete">
-                <a href="#"><h7>Delete</h7></a>
-            </div>
-
-        </div>
-        <div class="jumbotron diary-field">
-        </div>
         <br>
         <br>
         <br>

@@ -33,17 +33,68 @@
                 }
             }
 
+            let checkboxes = $('input:checkbox');
+            for (let i = 0; i < checkboxes.length; i++) {
+                let checkbox = checkboxes[i];
+                if (checkbox.checked) {
+                    console.log(checkbox.value);
+                }
+            }
+
+            function saveDiary() {
+                let date = $('#datepicker-input').val();
+                let emotion;
+                let checkboxes = $('input:checkbox');
+                for (let i = 0; i < checkboxes.length; i++) {
+                    let checkbox = checkboxes[i];
+                    if (checkbox.checked) {
+                        emotion = checkbox.value;
+                        console.log(emotion)
+                    }
+                }
+                let diary = richTextField.document.getElementsByTagName('body')[0].innerHTML;
+
+                if(date=="") {
+                    alert("Select date")
+                    return;
+                } else if (!(emotion=="😍"||emotion=="😆"||emotion=="🙂"||emotion=="🙁"||emotion=="😢"||emotion=="😭"||emotion=="😱"||emotion=="😡")) {
+                    alert("Choose your feeling today")
+                    return;
+                } else if (diary=="") {
+                    alert("Write something!")
+                    return;
+                }
+
+                <!--if any of three is empty return any error message-->
+                $.ajax({
+                    type: "POST",
+                    url: "/saveDiary",
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert("다이어리 저장됨");
+                            // 3. 성공 시 페이지 새로고침하기
+
+                        } else {
+                            alert("뭔가 잘못됨")
+                        }
+                    }
+                })
+            }
+
         </script>
         <style>
             #imgBtn {
 
             }
+
             .plus-image-btn {
                 width: 950px;
                 height: 70px;
                 margin-top: 10px;
                 margin-left: 270px;
             }
+
             #post-box {
                 display: flex;
                 margin-left: 255px;
@@ -161,7 +212,6 @@
                 display: flex;
                 justify-content: center;
                 padding-top: 10px;
-
             }
 
             .emoji-field {
@@ -226,6 +276,7 @@
             #datepicker > span:hover {
                 cursor: pointer;
             }
+
             .photo-space {
                 margin-left: 80px;
                 background-color: lightgray;
@@ -236,14 +287,14 @@
     <body onload="enabledEditMode();">
         <div class="empty-field">
             <form>
-                <input type="submit" value="Save" formaction="{{ url_for('main') }}" class="btn float-right login_btn">
+                <input onclick="saveDiary()" type="submit" value="Save" class="btn float-right login_btn">
             </form>
         </div>
         <div class="datepicker-field">
             <br>
             <h5>Select Date: </h5>
             <div class="input-group date" data-provide="datepicker">
-                <input type="text" class="form-control">
+                <input id="datepicker-input" type="text" class="form-control">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -253,56 +304,54 @@
             <h5> Today I feel :</h5>
             <div class="emoji-today">
                 <label class="container"><h2>😍&nbsp;</h2>&nbsp;
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😍">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>😆&nbsp;</h2>&nbsp;
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😆">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>🙂&nbsp;</h2>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="🙂">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>🙁&nbsp;</h2>&nbsp;
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="🙁">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>😢&nbsp;</h2>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😢">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>😭&nbsp;</h2>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😭">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>😱&nbsp;</h2>&nbsp;
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😱">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container"><h2>😡&nbsp;</h2>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" value="😡">
                     <span class="checkmark"></span>
                 </label>
+                <script>
+                    $(document).ready(function () {
+                        $('input:checkbox').click(function () {
+                            $('input:checkbox').not(this).prop('checked', false);
+                            let checkboxes = $('input:checkbox');
+                            for (let i = 0; i < checkboxes.length; i++) {
+                                let checkbox = checkboxes[i];
+                                if (checkbox.checked) {
+                                    console.log(checkbox.value);
+                                }
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
-        <div class="plus-image-btn">
-            <form>
-                <input id="imgBtn" value="+ Image" onclick="openClose()" class="btn login_btn">
-            </form>
-        </div>
-        <div id="post-box" class="form-post" style="display:none">
-            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                          style="display: none;"></p>
-            <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
-                <script>
-                    var loadFile = function (event) {
-                        var image = document.getElementById('output');
-                        image.src = URL.createObjectURL(event.target.files[0]);
-                    };
-                </script>
-            <img class="photo-space" id="output" width="600px" height="400px" />
-        </div>
+
         <div class="richtext">
             <div class="rich-icons">
                 <button onclick="execCmd('bold');"><i class="fa fa-bold"></i></button>
@@ -334,14 +383,22 @@
                 </select>
                 Fore Color: <input type="color" onchange="execCommandWithArg('foreColor',this.value);">
                 Background: <input type="color" onchange="execCommandWithArg('hiliteColor',this.value);">
-                <button onclick="execCommandWithArg('insertImage',prompt('Enter the image URL',''));"><i
-                        class="fa fa-file-image-o"></i></button>
-
-
-
+                <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                          style="display: none;"></p>
+                <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+                <script>
+                    let loadFile = function (event) {
+                        for (let i = 0; i < event.target.files.length; i++) {
+                            <!-- myFrame 에서 바디를 찾아서 거기다 append -->
+                            let body = $('#myFrame').contents().find("body");
+                            body.append(`<p><img src=${URL.createObjectURL(event.target.files[i])} style="max-width: 500px; max-height: 400px;"/></p>`)
+                        }
+                    }
+                </script>
 
             </div>
-            <iframe name="richTextField" style="padding: 10px; width: 930px; height: 500px; background-color: #dddddd"></iframe>
+            <iframe id="myFrame" name="richTextField"
+                    style="padding: 10px; width: 930px; height: 500px; background-color: #dddddd"></iframe>
         </div>
         <br>
         <br>
