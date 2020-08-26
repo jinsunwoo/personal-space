@@ -1,0 +1,3 @@
+function editFunc() {
+    alert('test')
+}

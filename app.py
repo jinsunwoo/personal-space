@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, jsonify, request, session, redirect
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import bcrypt
 
 app = Flask(__name__)
@@ -28,6 +29,30 @@ def main():
 def write():
     return render_template('write.html')
 
+@app.route('/writeEdit')
+def writeEdit():
+    # {1: 2} -> d.get(3, 23)
+    try:
+        _id = request.args["id"]
+    except KeyError:
+        return "Id not present", 400
+
+    #date = request.args.get("date", "")
+    #emotion = request.args.get("emotion", "")
+    #words = request.args.get("words", "")
+    #print("id from writeedit", _id)
+    try:
+        diary_entry = list(db.diaries.find({"_id": ObjectId(_id)}))[0]
+    except IndexError:
+        return f"Id does not exist: {_id}", 400
+
+    date = diary_entry["date"]
+    emotion = diary_entry["emotion"]
+    words = diary_entry["diary"]
+
+    #breakpoint()
+    return render_template('write2.html', date=date, emotion=emotion, words=words,_id=_id)
+
 
 # /readDiary?date=20200822
 # /readDiary?date=20200823
@@ -45,8 +70,11 @@ def readDiary():
 
 @app.route('/readAll', methods=['GET'])
 def read_all():
-    diaries = list(db.diaries.find({}, {'_id': False}).sort('date', -1))
-    #print(diaries)
+    diaries = list(db.diaries.find({}).sort('date', -1))
+    #breakpoint()
+    print(diaries)
+    diaries = [{key: str(value) if key == "_id" else value for key, value in diary.items()} for diary in diaries]
+    print(diaries)
     return jsonify({'result': 'success', 'diaries': diaries})
 
 
@@ -61,8 +89,18 @@ def save_diary():
 
     diary_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': diary_receive}
 
-    # mongoDB에 데이터 넣기
-    db.diaries.insert_one(diary_doc)
+    diary_id = request.form.get("diary_id")
+
+    if not diary_id:
+        # mongoDB에 데이터 넣기
+        db.diaries.insert_one(diary_doc)
+    else:
+        print(diary_id, "red", diary_doc)
+
+        #db.diaries.delete_one({{"_id": diary_id}})
+        #db.diaries.insert_one(diary_doc)
+        diary_id = ObjectId(diary_id)
+        db.diaries.update_one({"_id": diary_id}, {"$set": diary_doc})
 
     return jsonify({'result': 'success'})
 
@@ -73,12 +111,21 @@ def delete_diary():
     emotion_receive = request.form['emotion_give']
     # words_receive = request.form['words_give']
 
-    print(date_receive)
-    print(emotion_receive)
+    # print(date_receive)
+    # print(emotion_receive)
     # print(words_receive)
     db.diaries.delete_one({'date': date_receive, 'emotion':emotion_receive})
     return jsonify({'result': 'success'})
 
+
+@app.route('/editDiary', methods=['POST'])
+def editDiary():
+    date_receive = request.form['date_give']
+    emotion_receive = request.form['emotion_give']
+    words_receive = request.form['words_give']
+    edit_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': words_receive}
+    db.editDiary.insert_one(edit_doc)
+    return jsonify({'result': 'success'})
 
 
 if __name__ == '__main__':

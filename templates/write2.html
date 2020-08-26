@@ -15,14 +15,17 @@
         <script src="../static/calendar.js"></script>
         <script>
 
-            function testFunc() { alert('hello') }
+            function testFunc() {
+                alert('hello')
+            }
 
             $(function () {
                 $('.datepicker').datepicker();
 
             });
 
-            function saveDiary() {
+            function saveDiary(e) {
+                e.preventDefault();
                 let date = $('#datepicker-input').val();
                 let emotion;
                 let checkboxes = $('input:checkbox');
@@ -35,13 +38,13 @@
                 }
                 let diary = richTextField.document.getElementsByTagName('body')[0].innerHTML;
 
-                if(date=="") {
+                if (date == "") {
                     alert("Select date")
                     return;
-                } else if (!(emotion=="😍"||emotion=="😆"||emotion=="🙂"||emotion=="🙁"||emotion=="😢"||emotion=="😭"||emotion=="😱"||emotion=="😡")) {
+                } else if (!(emotion == "😍" || emotion == "😆" || emotion == "🙂" || emotion == "🙁" || emotion == "😢" || emotion == "😭" || emotion == "😱" || emotion == "😡")) {
                     alert("Choose your feeling today")
                     return;
-                } else if (diary=="") {
+                } else if (diary == "") {
                     alert("Write something!")
                     return;
                 }
@@ -50,7 +53,7 @@
                 $.ajax({
                     type: "POST",
                     url: "/saveDiary",
-                    data: {date_give: date, emotion_give: emotion, diary_give: diary},
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary, diary_id: "{{ _id }}"},
                     success: function (response) {
                         if (response["result"] == "success") {
                             alert("다이어리 저장됨");
@@ -269,7 +272,7 @@
     <body onload="enabledEditMode();">
         <div class="empty-field">
             <form>
-                <input onclick="saveDiary()" type="submit" value="Save" class="btn float-right login_btn">
+                <input onclick="saveDiary(event)" type="submit" value="Save" class="btn float-right login_btn">
                 <button onclick="testFunc()">Test</button>
             </form>
         </div>
@@ -277,7 +280,7 @@
             <br>
             <h5>Select Date: </h5>
             <div class="input-group date" data-provide="datepicker">
-                <input id="datepicker-input" type="text" class="form-control">
+                <input id="datepicker-input" type="text" value="{{ date }}" class="form-control">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -329,9 +332,21 @@
                                     console.log(checkbox.value);
                                 }
                             }
+                            ;
                         });
+                        $('#myFrame').contents().find('html').html("{{ words }}");
                     });
+
+                    let checkedEmoji = "{{ emotion }}"
+                    let checkboxes2 = $('input:checkbox')
+                    for (let i = 0; i < checkboxes2.length; i++)
+                        if (checkboxes2[i].value == checkedEmoji)
+                            checkboxes2[i].checked = true
+
+
                 </script>
+
+
             </div>
         </div>
 
@@ -399,8 +414,6 @@
             function execCommandWithArg(command, arg) {
                 richTextField.document.execCommand(command, false, arg);
             }
-
-
 
 
         </script>

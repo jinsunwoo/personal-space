@@ -11,6 +11,8 @@
               rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/f48ba3e534.js" crossorigin="anonymous"></script>
+        <script src="../static/calendar.js"></script>
+
 
         <style>
             #mainBtn {
@@ -145,8 +147,6 @@
             h7 {
                 color: black;
             }
-
-
         </style>
 
         <script>
@@ -168,7 +168,8 @@
                                 let date = diaries[i]['date'];
                                 let emoji = diaries[i]['emotion'];
                                 let words = diaries[i]['diary'];
-                                makeDiary(date,emoji,words);
+                                let id = diaries[i]['_id']
+                                makeDiary(date, emoji, words,id);
 
                             }
                         } else {
@@ -178,10 +179,10 @@
                 })
             }
 
-            function makeDiary(date, emotion, words) {
+            function makeDiary(date, emotion, words,id) {
                 let tempHtml = ` <div class="datemoji">
                 <div class="edit">
-                    <a href="#" onclick="test();">
+                    <a href="#" onclick="editDiary('${date}','${emotion}','${words}','${id}');">
                         <h7>Edit</h7>
                     </a>
                 </div>
@@ -202,8 +203,15 @@
             }
 
 
+            function editDiary(date, emotion, words, id) {
+                //let query_params = `?date=${date}&emotion=${emotion}&words=${words}&id=${id}`
+                let query_params = `?id=${id}`
+                window.location.href = "{{ url_for('writeEdit') }}" + query_params;
+            }
 
-            function deleteDiary(date,emotion,words) {
+            {# 전체 총괄 js 파일에 넣기 #}
+
+            function deleteDiary(date, emotion) {
                 {#console.log(date);
                 console.log(emotion);#}
                 $.ajax({
@@ -222,7 +230,6 @@
                     }
                 });
             }
-
 
 
         </script>
@@ -246,7 +253,7 @@
                         <h7>Edit</h7>
                     </a>
                 </div>
-                <h1 id="date-and-emoji">08/30/2020  🙂</h1>
+                <h1 id="date-and-emoji">08/30/2020 🙂</h1>
                 <div class="delete">
                     <a href="#">
                         <h7>Delete</h7>
