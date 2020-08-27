@@ -65,6 +65,9 @@ def writeEdit():
 #     return render_template('readDiary.html')
 @app.route('/readDiary')
 def readDiary():
+    diary_id  = request.args.get("diary_id")
+    if diary_id:
+        return render_template("readDiary2.html", diary_id=diary_id)
     return render_template('readDiary.html')
 
 
@@ -75,6 +78,19 @@ def read_all():
     print(diaries)
     diaries = [{key: str(value) if key == "_id" else value for key, value in diary.items()} for diary in diaries]
     print(diaries)
+    return jsonify({'result': 'success', 'diaries': diaries})
+
+@app.route("/readOne/<path:diary_id>", methods=["GET"])
+def read_one(diary_id):
+    diary_id = ObjectId(diary_id)
+
+    try:
+        diary = list(db.diaries.find({"_id": diary_id}))[0]
+        diaries = [diary]
+        diaries = [{key: str(value) if key == "_id" else value for key, value in diary.items()} for diary in diaries]
+    except IndexError:
+        diaries = [{}]
+
     return jsonify({'result': 'success', 'diaries': diaries})
 
 
