@@ -15,10 +15,6 @@
         <script src="../static/calendar.js"></script>
         <script>
 
-            function testFunc() {
-                alert('hello')
-            }
-
             $(function () {
                 $('.datepicker').datepicker();
 
@@ -56,12 +52,12 @@
                     data: {date_give: date, emotion_give: emotion, diary_give: diary, diary_id: "{{ _id }}"},
                     success: function (response) {
                         if (response["result"] == "success") {
-                            alert("다이어리 저장됨");
+                           {# alert("다이어리 저장됨");#}
                             // 3. 성공 시 페이지 새로고침하기
                             window.location.href = "/main";
 
                         } else {
-                            alert("뭔가 잘못됨")
+                            alert("Error from write2.html")
                         }
                     }
                 })
@@ -263,6 +259,10 @@
                 cursor: pointer;
             }
 
+            #myFrame {
+                margin-top: 15px;
+            }
+
             .photo-space {
                 margin-left: 80px;
                 background-color: lightgray;
@@ -274,7 +274,7 @@
         <div class="empty-field">
             <form>
                 <input onclick="saveDiary(event)" type="submit" value="Save" class="btn float-right login_btn">
-                <button onclick="testFunc()">Test</button>
+
             </form>
         </div>
         <div class="datepicker-field">
@@ -390,7 +390,8 @@
                 </select>
                 Fore Color: <input type="color" onchange="execCommandWithArg('foreColor',this.value);">
                 Background: <input type="color" onchange="execCommandWithArg('hiliteColor',this.value);">
-                <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                <br>
+                {#<p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
                           style="display: none;"></p>
                 <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
                 <script>
@@ -401,8 +402,7 @@
                             body.append(`<p><img src=${URL.createObjectURL(event.target.files[i])} style="max-width: 500px; max-height: 400px;"/></p>`)
                         }
                     }
-                </script>
-
+                </script>#}
             </div>
             <iframe id="myFrame" name="richTextField"
                     style="padding: 10px; width: 930px; height: 500px; background-color: #dddddd"></iframe>

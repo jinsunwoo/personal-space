@@ -17,14 +17,7 @@ td.fc-today {
   font-weight: 600 !important;
   border-top: 1px solid #ccc;
 }
-.fc-event-inner {
-  font-family: 'Open Sans', sans-serif;
-  background: lightsteelblue !important;
-  color: #fff !important;
-  font-size: 45px !important;
-  font-weight: 400 !important;
-  padding: 5px 4px !important;
-}
+
 
 .fc {
   direction: ltr;

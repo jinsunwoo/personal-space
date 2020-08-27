@@ -162,7 +162,6 @@
                     data: {},
                     success: function (response) {
                         if (response["result"] == "success") {
-                            alert("works fine")
                             let diaries = response["diaries"];
                             for (let i = 0; i < diaries.length; i++) {
                                 let date = diaries[i]['date'];
@@ -221,11 +220,11 @@
                     success: function (response) {
                         if (response['result'] == 'success') {
                             // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
-                            alert('삭제 완료! 안녕!')
+                            {#alert('삭제 완료! 안녕!')#}
                             // 3. 변경된 정보를 반영하기 위해 새로고침합니다.
                             window.location.reload()
                         } else {
-                            alert('works bad')
+                            alert('error from deletefunction in readDiary.html')
                         }
                     }
                 });

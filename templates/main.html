@@ -37,7 +37,6 @@
                         data: {},
                         success: function (response) {
                             if (response["result"] == "success") {
-                                alert("works fine")
                                 let events_list = [];
                                 let diaries = response["diaries"];
                                 for (let i = 0; i < diaries.length; i++) {
@@ -221,13 +220,22 @@
             #calendar {
                 /* 		float: right; */
                 margin: 0 auto;
-                width: 900px;
+                width: 800px;
                 background-color: #FFFFFF;
                 border-radius: 6px;
                 box-shadow: 0 1px 2px #C3C3C3;
                 -webkit-box-shadow: 0px 0px 21px 2px rgba(0, 0, 0, 0.18);
                 -moz-box-shadow: 0px 0px 21px 2px rgba(0, 0, 0, 0.18);
                 box-shadow: 0px 0px 21px 2px rgba(0, 0, 0, 0.18);
+            }
+
+            .fc-event-inner {
+                font-family: 'Open Sans', sans-serif;
+                background: white !important;
+                color: #fff !important;
+                font-size: 25px !important;
+                font-weight: 400 !important;
+                padding: 5px 4px !important;
             }
         </style>
 
@@ -239,13 +247,20 @@
             html, body {
                 height: 100%;
                 font-family: 'Numans', sans-serif;
+                background-color: lightsteelblue;
+                margin: 0;
 
+            }
+
+            .imgSize {
+                height: 250px;
+                width: 400px;
             }
 
             .logo {
                 display: flex;
                 justify-content: center;
-                margin-left: 40px;
+                background-color: white;
             }
 
             .login_btn {
@@ -263,9 +278,9 @@
 
 
             .mainpage {
-                background-color: lightsteelblue;
+
                 width: 100%;
-                height: 1000px;
+                height: 900px;
                 text-align: center;
                 padding-top: 130px;
 
@@ -285,12 +300,18 @@
             }
 
             .menu-buttons {
-
+                padding-top: 10px;
             }
+
 
             #chart {
                 max-width: 1100px;
                 margin: 45px auto;
+            }
+
+            .end {
+                background-color: steelblue;
+                height: 130px;
             }
         </style>
         <script>
@@ -332,9 +353,9 @@
         </script>
     </head>
     <body>
-        <div class="menu-buttons">
+
             <div class="logo">
-                <img src="../static/logo5.jpg" alt="personal space">
+                <img class="imgSize" src="../static/logo5.jpg" alt="personal space">
             </div>
             <div class="menu-buttons">
                 <form>
@@ -350,7 +371,7 @@
                            class="btn float-right login_btn">
                 </form>
             </div>
-        </div>
+
         <div class="mainpage">
 
             <div class="emotion-calendar">
@@ -360,86 +381,8 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <div class="heatmap">
-            <div id="chart"></div>
+        <div class="end"></div>
 
-            <script>
-                var options = {
-                    series: [
-                        {
-                            name: "Sat",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Fri",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Thurs",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Wed",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Tue",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Mon",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                        {
-                            name: "Sun",
-                            data: generateData(52, {
-                                min: 0,
-                                max: 90,
-                            }),
-                        },
-                    ],
-                    chart: {
-                        height: 220,
-                        width: 1000,
-                        type: "heatmap",
-                    },
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    colors: ["#B1C4DE"],
-                    title: {
-                        text: "HeatMap Chart (Single color)",
-                    },
-                };
-
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            </script>
-
-        </div>
-        <br>
-        <br>
-        <br>
 
         <script type="text/javascript" src="../static/calendar.js"></script>
 
