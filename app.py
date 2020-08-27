@@ -44,11 +44,13 @@ def writeEdit():
     try:
         diary_entry = list(db.diaries.find({"_id": ObjectId(_id)}))[0]
     except IndexError:
-        return f"Id does not exist: {_id}", 400
+        return "Id does not exist: {_id}", 400
 
     date = diary_entry["date"]
     emotion = diary_entry["emotion"]
     words = diary_entry["diary"]
+
+    print(words)
 
     #breakpoint()
     return render_template('write2.html', date=date, emotion=emotion, words=words,_id=_id)

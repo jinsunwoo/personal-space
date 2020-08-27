@@ -335,7 +335,15 @@
                             }
                             ;
                         });
-                        $('#myFrame').contents().find('html').html("{{ words }}");
+                        {#console.log("{{  date }}")
+                        console.log("{{ words }}")
+                        console.log("{{ emotion }}")#}
+
+                        var conVerted = $('<textarea />').html("{{ words }}").text();
+                       {# console.log('this is converted version: ',Title);#}
+
+                        $('#myFrame').contents().find('body').append(conVerted)
+                        {#$('#myFrame').contents().find('html').html("{{ words }}");#}
                     });
 
                     let checkedEmoji = "{{ emotion }}"
