@@ -18,7 +18,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../static/calendar.css">
-        <link rel="stylesheet" type="text/css" href="../static/heatmap.css">
+
 
         <!--for caledar bootstrap-->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
@@ -286,19 +286,6 @@
 
             }
 
-            .first-segment {
-                display: flex;
-                justify-content: center;
-
-            }
-
-            .github-calendar {
-                background-color: whitesmoke;
-                width: 800px;
-                height: 300px;
-                margin: auto;
-            }
-
             .menu-buttons {
                 padding-top: 10px;
             }
@@ -329,28 +316,6 @@
             );
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-        <!--script for heatmap-->
-        <script>
-            function generateData(count, yrange) {
-                var i = 0;
-                var series = [];
-                while (i < count) {
-                    var x = "w" + (i + 1).toString();
-                    var y =
-                        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) +
-                        yrange.min;
-
-                    series.push({
-                        x: x,
-                        y: y,
-                    });
-                    i++;
-                }
-                return series;
-            }
-        </script>
     </head>
     <body>
 
