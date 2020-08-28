@@ -16,6 +16,40 @@
 
         <!--Custom styles-->
         <link rel="stylesheet" type="text/css" href="../static/styles.css">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- 쿠키 사용을 위한 Jquery-cookie 임포트 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+        <script>
+            function login() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/login",
+                    data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                            // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
+                            $.cookie('mytoken', response['token']);
+                            alert('로그인 완료!')
+                            window.location.href = '/main'
+                        } else {
+                            // 로그인이 안되면 에러메시지를 띄웁니다.
+                            alert(response['msg'])
+                        }
+                    }
+                })
+            }
+        </script>
+
     </head>
     <body>
         <div class="container">
@@ -30,14 +64,14 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="username">
+                                <input type="text" id="userid" class="form-control" placeholder="username">
 
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="password">
+                                <input type="password" id="userpw" class="form-control" placeholder="password">
                             </div>
                             <div class="row align-items-center remember">
                                 <input type="checkbox">Remember Me
@@ -45,7 +79,7 @@
                             <!--<div class="form-group">
                             </div>-->
                             <form>
-                                <input type="submit" value="Login" formaction="{{ url_for('main') }}"
+                                <input type="submit" value="Login" onclick="login();"
                                        class="btn float-right login_btn">
                             </form>
                         </form>
