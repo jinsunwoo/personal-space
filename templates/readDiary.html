@@ -153,6 +153,8 @@
             $(document).ready(function () {
                 $("#diary-field").html("");
                 showDiaries();
+                const cat = localStorage.getItem('myID');
+                alert(cat)
             });
 
             function showDiaries() {

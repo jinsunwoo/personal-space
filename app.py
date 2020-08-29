@@ -109,9 +109,10 @@ def save_diary():
     date_receive = request.form['date_give']
     emotion_receive = request.form['emotion_give']
     diary_receive = request.form['diary_give']
+    id_receive = request.form['id_give']
     # print(date_receive)
     # print(emotion_receive)
-    diary_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': diary_receive}
+    diary_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': diary_receive,'userID':id_receive}
 
     diary_id = request.form.get("diary_id")
 

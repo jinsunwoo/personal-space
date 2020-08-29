@@ -14,6 +14,11 @@
         <script src="https://kit.fontawesome.com/f48ba3e534.js" crossorigin="anonymous"></script>
         <script src="../static/calendar.js"></script>
         <script>
+            const cat = localStorage.getItem('myID');
+            $(document).ready(function () {
+                alert(cat);
+
+            });
 
             $(function () {
                 $('.datepicker').datepicker();
@@ -49,10 +54,10 @@
                 $.ajax({
                     type: "POST",
                     url: "/saveDiary",
-                    data: {date_give: date, emotion_give: emotion, diary_give: diary, diary_id: "{{ _id }}"},
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary, id_give:cat, diary_id: "{{ _id }}"},
                     success: function (response) {
                         if (response["result"] == "success") {
-                           {# alert("다이어리 저장됨");#}
+                            {# alert("다이어리 저장됨");#}
                             // 3. 성공 시 페이지 새로고침하기
                             window.location.href = "/main";
 
@@ -340,7 +345,7 @@
                         console.log("{{ emotion }}")#}
 
                         var conVerted = $('<textarea />').html("{{ words }}").text();
-                       {# console.log('this is converted version: ',Title);#}
+                        {# console.log('this is converted version: ',Title);#}
 
                         $('#myFrame').contents().find('body').append(conVerted)
                         {#$('#myFrame').contents().find('html').html("{{ words }}");#}
@@ -410,6 +415,7 @@
         <br>
         <br>
         <br>
+        <h5 id="forUserWrite2"></h5>
         <script type="text/javascript">
 
             function enabledEditMode() {

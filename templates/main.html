@@ -39,7 +39,8 @@
 
 
         <script>
-            let userID = 3;
+            myStorage = window.localStorage;
+            let userID;
             $(document).ready(function () {
 
                 readCalendar();
@@ -188,6 +189,7 @@
                                 // 올바른 결과값을 받으면 nickname을 입력해줍니다.
                                 userID = response['userID']
                                 $('#space-for-id').append(userID)
+                                localStorage.setItem('myID', userID);
                                 // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
 
                             } else {
@@ -198,6 +200,8 @@
                         }
                     })
                 }
+                const cat = localStorage.getItem('myID');
+                alert(cat)
             });
 
         </script>
