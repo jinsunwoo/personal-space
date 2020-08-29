@@ -19,6 +19,10 @@ import hashlib
 def loginpage():
     return render_template('index.html')
 
+@app.route('/')
+def backIndex():
+    return render_template('index.html')
+
 
 @app.route('/signup')
 def signup():
@@ -79,9 +83,9 @@ def readDiary():
     return render_template('readDiary.html')
 
 
-@app.route('/readAll', methods=['GET'])
-def read_all():
-    diaries = list(db.diaries.find({}).sort('date', -1))
+@app.route('/readAll/<path:userID>', methods=['GET'])
+def read_all(userID):
+    diaries = list(db.diaries.find({'userID':userID}).sort('date', -1))
     # breakpoint()
     print(diaries)
     diaries = [{key: str(value) if key == "_id" else value for key, value in diary.items()} for diary in diaries]

@@ -150,17 +150,16 @@
         </style>
 
         <script>
+            const cat = localStorage.getItem('myID');
             $(document).ready(function () {
                 $("#diary-field").html("");
                 showDiaries();
-                const cat = localStorage.getItem('myID');
-                alert(cat)
             });
 
             function showDiaries() {
                 $.ajax({
                     type: "GET",
-                    url: "/readAll",
+                    url: "/readAll/"+cat,
                     data: {},
                     success: function (response) {
                         if (response["result"] == "success") {
@@ -170,7 +169,7 @@
                                 let emoji = diaries[i]['emotion'];
                                 let words = diaries[i]['diary'];
                                 let id = diaries[i]['_id']
-                                makeDiary(date, emoji, words,id);
+                                makeDiary(date, emoji, words, id);
 
                             }
                         } else {

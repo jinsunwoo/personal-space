@@ -36,19 +36,43 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
-
-
         <script>
             myStorage = window.localStorage;
             let userID;
             $(document).ready(function () {
+                load_user_info();
+                function load_user_info() {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/userid",
+                        headers: {'token_give': $.cookie('mytoken')},
+                        data: {},
+                        success: function (response) {
+                            if (response['result'] == 'success') {
+                                // 올바른 결과값을 받으면 nickname을 입력해줍니다.
+                                userID = response['userID']
+                                $('#space-for-id').append(userID)
+                                // save userID to local storage with key myID
+                                localStorage.setItem('myID', userID);
+                                // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
+                            } else {
+                                // 에러가 나면 메시지를 띄우고 로그인 창으로 이동합니다.
+                                alert(response['msg'])
+                                window.location.href = '/login'
+                            }
+                        }
+                    })
+                }
+
+
+                const cat = localStorage.getItem('myID');
 
                 readCalendar();
 
                 function readCalendar() {
                     $.ajax({
                         type: "GET",
-                        url: "/readAll",
+                        url: "/readAll/" + cat,
                         data: {},
                         success: function (response) {
                             if (response["result"] == "success") {
@@ -73,7 +97,6 @@
                                     };
                                     console.log(event)
                                     events_list.push(event);
-
                                     {#console.log(diaries[i])#}
                                 }
                                 console.log('this is an event list: ', events_list);
@@ -174,33 +197,18 @@
                             }
                         }
                     })
+
                 }
 
-                load_user_info();
-                function load_user_info() {
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/userid",
-                        headers: {'token_give': $.cookie('mytoken')},
-                        data: {},
-                        success: function (response) {
-                            if (response['result'] == 'success') {
-                                // 올바른 결과값을 받으면 nickname을 입력해줍니다.
-                                userID = response['userID']
-                                $('#space-for-id').append(userID)
-                                // save userID to local storage with key myID
-                                localStorage.setItem('myID', userID);
-                                // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
 
-                            } else {
-                                // 에러가 나면 메시지를 띄우고 로그인 창으로 이동합니다.
-                                alert(response['msg'])
-                                window.location.href = '/login'
-                            }
-                        }
-                    })
-                }
+
             });
+
+            function logout() {
+                 $.removeCookie('mytoken');
+                 alert('로그아웃!')
+                 window.location.href = '/'
+            }
         </script>
         <link rel="stylesheet" href="../static/calendar.css" type="text/css">
         <style>
@@ -371,8 +379,7 @@
             <h3 id="space-for-id">for. </h3>
             <div class="three-btns">
                 <form>
-                    <input type="submit" value="Logout" formaction="{{ url_for('loginpage') }}"
-                           class="btn float-right login_btn">
+                    <input type="button" value="Logout" onclick="logout();" class="btn float-right login_btn">
                 </form>
                 <form>
                     <input type="submit" value="Diary" formaction="{{ url_for('readDiary') }}"
