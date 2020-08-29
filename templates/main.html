@@ -52,6 +52,7 @@
                                 // 올바른 결과값을 받으면 nickname을 입력해줍니다.
                                 userID = response['userID']
                                 $('#space-for-id').append(userID)
+                                readCalendar(userID);
                                 // save userID to local storage with key myID
                                 localStorage.setItem('myID', userID);
                                 // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
@@ -65,14 +66,14 @@
                 }
 
 
-                const cat = localStorage.getItem('myID');
+                // cat =
 
-                readCalendar();
 
-                function readCalendar() {
+
+                function readCalendar(userID) {
                     $.ajax({
                         type: "GET",
-                        url: "/readAll/" + cat,
+                        url: "/readAll/" + userID,
                         data: {},
                         success: function (response) {
                             if (response["result"] == "success") {
@@ -207,6 +208,7 @@
             function logout() {
                  $.removeCookie('mytoken');
                  alert('로그아웃!')
+                 localStorage.removeItem('myID');
                  window.location.href = '/'
             }
         </script>
