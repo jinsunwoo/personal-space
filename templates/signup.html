@@ -23,6 +23,29 @@
                 crossorigin="anonymous"></script>
         <!--Custom styles-->
         <link rel="stylesheet" type="text/css" href="../static/styles.css">
+        <style>
+            html, body {
+                background-color: lightsteelblue;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+                font-family: 'Numans', sans-serif;
+            }
+
+            #logo2 {
+                width: 220px;
+                height: 170px;
+                margin: 15px;
+            }
+
+            .container {
+                width: 500px;
+                height: 400px;
+                margin-left: 450px;
+                margin-top: 0px;
+            }
+
+        </style>
         <script>
             function register() {
                 let id = $('#userID').val();
@@ -48,12 +71,11 @@
                         }
                     })
                 }
-
-
             }
         </script>
     </head>
     <body>
+        <img id="logo2" src="../static/logo2.jpg">
         <div class="container">
             <div class="d-flex justify-content-center h-100">
                 <div class="card">

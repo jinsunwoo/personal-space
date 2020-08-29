@@ -28,7 +28,31 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
+        <style>
+            html, body {
+                background-color: lightsteelblue;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+                font-family: 'Numans', sans-serif;
+            }
+
+            #logo2 {
+                width: 220px;
+                height: 170px;
+                margin: 15px;
+            }
+
+            .container {
+                width: 500px;
+                height: 400px;
+                margin-left: 450px;
+                margin-top: 0px;
+            }
+        </style>
         <script>
+
+
             function login() {
                 $.ajax({
                     type: "POST",
@@ -49,11 +73,10 @@
                 })
             }
         </script>
-        <meta property="og:title" content="Personal Space"/>
-        <meta property="og:description" content="Daily Diary website"/>
-        <meta property="og:image" content="{{ url_for('static', filename='logo5.jpg') }}"/>
     </head>
     <body>
+
+        <img id="logo2" src="../static/logo2.jpg">
         <div class="container">
             <div class="d-flex justify-content-center h-100">
                 <div class="card">

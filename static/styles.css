@@ -2,14 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
-html,body{
-background-image: url('http://getwallpapers.com/wallpaper/full/2/2/d/86958.jpg');
-background-size: cover;
-background-repeat: no-repeat;
-height: 100%;
-font-family: 'Numans', sans-serif;
-
-}
+/*url('http://getwallpapers.com/wallpaper/full/4/b/a/573224.jpg');*/
 
 .container{
 height: 100%;
