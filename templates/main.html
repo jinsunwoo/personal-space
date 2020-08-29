@@ -174,10 +174,9 @@
                             }
                         }
                     })
-
                 }
-                load_user_info();
 
+                load_user_info();
                 function load_user_info() {
                     $.ajax({
                         type: "GET",
@@ -189,6 +188,7 @@
                                 // 올바른 결과값을 받으면 nickname을 입력해줍니다.
                                 userID = response['userID']
                                 $('#space-for-id').append(userID)
+                                // save userID to local storage with key myID
                                 localStorage.setItem('myID', userID);
                                 // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
 
@@ -200,10 +200,7 @@
                         }
                     })
                 }
-                const cat = localStorage.getItem('myID');
-                alert(cat)
             });
-
         </script>
         <link rel="stylesheet" href="../static/calendar.css" type="text/css">
         <style>

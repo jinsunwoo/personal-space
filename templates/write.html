@@ -24,34 +24,8 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
         <script>
-            var userID;
-            $(document).ready(function () {
-                load_user_info();
-                function load_user_info() {
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/userid",
-                        headers: {'token_give': $.cookie('mytoken')},
-                        data: {},
-                        success: function (response) {
-                            if (response['result'] == 'success') {
-                                // 올바른 결과값을 받으면 nickname을 입력해줍니다.
-                                userID = response['userID']
-                                $('#forUserWrite').append(userID);
-                                // savedWords 를 여기서 부르면 확실히 userID 받을 수 있으니까
-                            } else {
-                                // 에러가 나면 메시지를 띄우고 로그인 창으로 이동합니다.
-                                alert(response['msg'])
-                                window.location.href = '/login'
-                            }
-                        }
-                    })
-                }
-            });
-
             $(function () {
                 $('.datepicker').datepicker();
-
             });
 
             function saveDiary() {
@@ -78,27 +52,22 @@
                     return;
                 }
 
-                let user_id = $('#forUserWrite').text();
-
-
+                const cat = localStorage.getItem('myID');
                {# <!--if any of three is empty return any error message-->#}
                 $.ajax({
                     type: "POST",
                     url: "/saveDiary",
-                    data: {date_give: date, emotion_give: emotion, diary_give: diary,id_give:user_id},
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary,id_give:cat},
                     success: function (response) {
                         if (response["result"] == "success") {
                             {#alert("다이어리 저장됨");#}
                             // 3. 성공 시 페이지 새로고침하기
                             window.location.href = "/main";
-
                         } else {
                             alert("Error from write.html")
                         }
                     }
                 })
-
-
             }
 
         </script>
@@ -279,7 +248,6 @@
                 margin-bottom: 10px;
             }
 
-
             .diary-text {
                 width: 925px;
                 height: 700px;
@@ -305,7 +273,6 @@
                 background-color: lightgray;
             }
         </style>
-
     </head>
     <body onload="enabledEditMode();">
         <div class="empty-field">
@@ -374,7 +341,6 @@
                 </script>
             </div>
         </div>
-
         <div class="richtext">
             <div class="rich-icons">
                 <button onclick="execCmd('bold');"><i class="fa fa-bold"></i></button>
@@ -426,9 +392,7 @@
         <br>
         <br>
         <br>
-        <h5 id="forUserWrite"></h5>
         <script type="text/javascript">
-
             function enabledEditMode() {
                 richTextField.document.designMode = 'On';
             }
@@ -440,10 +404,6 @@
             function execCommandWithArg(command, arg) {
                 richTextField.document.execCommand(command, false, arg);
             }
-
-
         </script>
-
-
     </body>
 </html>

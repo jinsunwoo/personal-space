@@ -15,14 +15,9 @@
         <script src="../static/calendar.js"></script>
         <script>
             const cat = localStorage.getItem('myID');
-            $(document).ready(function () {
-                alert(cat);
-
-            });
 
             $(function () {
                 $('.datepicker').datepicker();
-
             });
 
             function saveDiary(e) {
