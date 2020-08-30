@@ -37,6 +37,7 @@
                 font-family: 'Numans', sans-serif;
             }
 
+
             #logo2 {
                 width: 230px;
                 height: 180px;
@@ -45,51 +46,54 @@
 
             .container {
                 width: 500px;
-                height: 350px;
+                height: 400px;
                 margin-left: 470px;
                 margin-top: 0px;
 
             }
 
-            .login_btn {
-                margin-top: 25px;
-            }
 
             .card-body {
                 margin-top: 25px;
             }
 
+            .login_btn {
+                margin-right: -20px;
+            }
+
+            #reset2 {
+                margin-top: 20px;
+                margin-left: 15px;
+            }
+
+
         </style>
         <script>
-
-
-            function login() {
-                let user_id = $('#userid').val();
-                let user_pw = $('#userpw').val()
+            function forgotpw() {
+                let user_id = $('#userid2').val();
+                let user_email = $('#useremail2').val()
                 if (user_id == "") {
                     alert('Enter ID')
-                } else if (user_pw == "") {
-                    alert('Enter password')
+                } else if (user_email == "") {
+                    alert('Enter Email')
                 } else {
                     $.ajax({
                         type: "POST",
-                        url: "/api/login",
-                        data: {id_give: user_id, pw_give: user_pw},
+                        url: "/forgotpw2",
+                        data: {id_give: user_id, email_give: user_email},
                         success: function (response) {
                             if (response['result'] == 'success') {
-                                // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                                // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
-                                $.cookie('mytoken', response['token']);
-                                alert('Welcome ' + user_id)
-                                window.location.href = '/main'
+                                localStorage.setItem('myID2', user_id);
+                                alert('your id is'+user_id)
+                                window.location.href = '{{url_for('resetpw')}}'
                             } else {
-                                // 로그인이 안되면 에러메시지를 띄웁니다.
                                 alert(response['msg'])
                             }
                         }
                     })
                 }
             }
+
         </script>
     </head>
     <body>
@@ -98,7 +102,7 @@
             <div class="d-flex justify-content-center h-100">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Sign In</h3>
+                        <h3>Reset password</h3>
                     </div>
                     <div class="card-body">
                         <form>
@@ -106,29 +110,35 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" id="userid" class="form-control" placeholder="ID">
+                                <input type="text" id="userid2" class="form-control" placeholder="ID">
 
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="password" id="userpw" class="form-control" placeholder="password">
+                                <input type="text" id="useremail2" class="form-control" placeholder="Email">
+
                             </div>
-                            <!--<div class="form-group">
-                            </div>-->
-                            <form>
-                                <input type="submit" value="Login" onclick="login();"
-                                       class="btn float-right login_btn">
-                            </form>
+
+                            <div class="align_two_buttons">
+                                <div class="form-group change-posi">
+
+                                    <button class="btn float-right login_btn"
+                                            formaction="{{ url_for('loginpage') }}">Back
+                                    </button>
+
+                                </div>
+                                <div class="form-group change-posi">
+                                    <button onclick="forgotpw();" class="btn float-right login_btn">Next
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-center links">
-                            Don't have an account?<a href="{{ url_for('signup') }}">Sign Up</a>
-                        </div>
                         <div class="d-flex justify-content-center">
-                            <a href="{{ url_for('forgotpw') }}">Forgot your password?</a>
+                            <a href="{{ url_for('forgotIDpage') }}">Forgot your ID?</a>
                         </div>
                     </div>
                 </div>

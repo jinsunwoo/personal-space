@@ -10,7 +10,7 @@ align-content: center;
 }
 
 .card{
-height: 370px;
+height: 410px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -64,12 +64,6 @@ color: white;
 
 .links a{
 margin-left: 4px;
-}
-
-.align_two_buttons{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
 }
 
 .change-posi{

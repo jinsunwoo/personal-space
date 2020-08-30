@@ -53,11 +53,11 @@
                 }
 
                 const cat = localStorage.getItem('myID');
-               {# <!--if any of three is empty return any error message-->#}
+                {# <!--if any of three is empty return any error message-->#}
                 $.ajax({
                     type: "POST",
                     url: "/saveDiary",
-                    data: {date_give: date, emotion_give: emotion, diary_give: diary,id_give:cat},
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary, id_give: cat},
                     success: function (response) {
                         if (response["result"] == "success") {
                             {#alert("다이어리 저장됨");#}
@@ -68,6 +68,10 @@
                         }
                     }
                 })
+            }
+
+            function toMain() {
+                window.location.href = '{{url_for('main')}}'
             }
 
         </script>
@@ -260,7 +264,7 @@
             }
 
             #datepicker {
-                width: 180px;
+                width: 200px;
                 margin: 0 20px 20px 20px;
             }
 
@@ -272,13 +276,27 @@
                 margin-left: 80px;
                 background-color: lightgray;
             }
+
+            #2main {
+                left: 100px;
+
+            }
+            #2save {
+                height: 80px;
+                width: 300px;
+                background-color: red;
+
+            }
         </style>
     </head>
     <body onload="enabledEditMode();">
         <div class="empty-field">
-            <form>
+            <div id="2main" >
+                <input onclick="toMain()" type="button" value="Main" class="btn float-right login_btn">
+            </div>
+            <div id="2save" >
                 <input onclick="saveDiary()" type="submit" value="Save" class="btn float-right login_btn">
-            </form>
+            </div>
         </div>
         <div class="datepicker-field">
             <br>

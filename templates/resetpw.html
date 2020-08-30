@@ -37,6 +37,7 @@
                 font-family: 'Numans', sans-serif;
             }
 
+
             #logo2 {
                 width: 230px;
                 height: 180px;
@@ -45,46 +46,57 @@
 
             .container {
                 width: 500px;
-                height: 350px;
+                height: 300px;
                 margin-left: 470px;
                 margin-top: 0px;
 
             }
 
-            .login_btn {
-                margin-top: 25px;
+            .card {
+                height: 350px;
             }
+
 
             .card-body {
                 margin-top: 25px;
             }
 
+            .login_btn {
+                margin-right: 30px;
+                margin-top: 30px;
+            }
+
+
+
+
         </style>
         <script>
-
-
-            function login() {
-                let user_id = $('#userid').val();
-                let user_pw = $('#userpw').val()
-                if (user_id == "") {
-                    alert('Enter ID')
-                } else if (user_pw == "") {
-                    alert('Enter password')
+            const cat = localStorage.getItem('myID2');
+            function change() {
+                alert('hi');
+                let new_pw = $('#newpw').val();
+                let new_repw = $('#newrepw').val();
+                if (new_pw == "") {
+                    alert('Enter new password');
+                } else if (new_repw == "") {
+                    alert('Enter new password reconfirmation');
+                } else if (new_pw !== new_repw) {
+                    alert ('New password does not match with the reconfirmed');
                 } else {
+                    localStorage.removeItem('myID2');
                     $.ajax({
                         type: "POST",
-                        url: "/api/login",
-                        data: {id_give: user_id, pw_give: user_pw},
+                        url: "forgotpw3",
+                        data: {pw_give: new_pw,id_give: cat},
                         success: function (response) {
                             if (response['result'] == 'success') {
-                                // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                                // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
-                                $.cookie('mytoken', response['token']);
-                                alert('Welcome ' + user_id)
-                                window.location.href = '/main'
+                                localStorage.removeItem('myID2');
+                                alert('Your password is reset now. Try log in with new password.')
+                                window.location.href = '{{ url_for('loginpage') }}'
                             } else {
-                                // 로그인이 안되면 에러메시지를 띄웁니다.
-                                alert(response['msg'])
+                                localStorage.removeItem('myID2');
+                                alert('Server error, maybe try again')
+                                window.location.href = '{{ url_for('forgotpw') }}'
                             }
                         }
                     })
@@ -98,39 +110,37 @@
             <div class="d-flex justify-content-center h-100">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Sign In</h3>
+                        <h3>Reset password</h3>
                     </div>
                     <div class="card-body">
                         <form>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="text" id="userid" class="form-control" placeholder="ID">
-
+                                <input type="password" id="newpw" class="form-control" placeholder="New password">
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" id="userpw" class="form-control" placeholder="password">
+                                <input type="password" id="newrepw" class="form-control"
+                                       placeholder="Reconfirm new password">
                             </div>
-                            <!--<div class="form-group">
-                            </div>-->
-                            <form>
-                                <input type="submit" value="Login" onclick="login();"
-                                       class="btn float-right login_btn">
-                            </form>
+                            <div class="align_two_buttons">
+                                <div class="form-group change-posi">
+                                    <button class="btn float-right login_btn"
+                                            formaction="{{ url_for('forgotpw') }}">Back
+                                    </button>
+                                </div>
+                                 <div class="form-group change-posi">
+                                    <button onclick="change()" class="btn float-right login_btn">Reset
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center links">
-                            Don't have an account?<a href="{{ url_for('signup') }}">Sign Up</a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="{{ url_for('forgotpw') }}">Forgot your password?</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

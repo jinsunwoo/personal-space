@@ -33,26 +33,45 @@
             }
 
             #logo2 {
-                width: 220px;
-                height: 170px;
-                margin: 15px;
+                width: 230px;
+                height: 180px;
+
             }
 
             .container {
                 width: 500px;
-                height: 400px;
-                margin-left: 450px;
-                margin-top: 0px;
+                height: 350px;
+                margin-left: 470px;
+
+            }
+
+            .align_two_buttons {
+                margin-left: 15px;
+
+            }
+
+            .card {
+                height: 420px;
+                width: 400px;
             }
 
         </style>
         <script>
             function register() {
                 let id = $('#userID').val();
+                let email = $('#userEmail').val();
                 let pw = $('#password').val();
                 let repw = $('#repassword').val();
-                if (pw !== repw) {
-                    alert('You fucked up!')
+                if (id == "") {
+                    alert('Please type ID')
+                } else if (email == "") {
+                    alert('Please type email')
+                } else if (pw == "") {
+                    alert('Please type password')
+                } else if (repw == "") {
+                    alert('Please type password reconfirmation')
+                } else if (pw !== repw) {
+                    alert('Password does not match with the reconfirmed')
                 } else {
                     $.ajax({
                         type: "POST",
@@ -60,13 +79,16 @@
                         data: {
                             id_give: id,
                             pw_give: pw,
+                            email_give: email,
                         },
                         success: function (response) {
                             if (response['result'] == 'success') {
-                                alert('회원가입이 완료되었습니다.')
+                                alert('You are registered')
                                 window.location.href = '/'
+                            } else if (response['result'] == 'idTaken') {
+                                alert(response['msg'])
                             } else {
-                                alert('회원가입 실패.서버오류.')
+                                alert('error')
                             }
                         }
                     })
@@ -88,7 +110,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" id="userID" class="form-control" placeholder="username">
+                                <input type="text" id="userID" class="form-control" placeholder="ID">
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" id="userEmail" class="form-control" placeholder="Email">
 
                             </div>
                             <div class="input-group form-group">
@@ -102,19 +130,17 @@
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
                                 <input type="password" id="repassword" class="form-control"
-                                       placeholder="password reconfirmation">
+                                       placeholder="confirm password">
                             </div>
                             <div class="align_two_buttons">
                                 <div class="form-group change-posi">
-                                    <button onclick="register();" class="btn float-right login_btn">Create
-                                    </button>
-                                </div>
-                                <div class="form-group change-posi">
-
                                     <button class="btn float-right login_btn"
                                             formaction="{{ url_for('loginpage') }}">Back
                                     </button>
-
+                                </div>
+                                <div class="form-group change-posi">
+                                    <button onclick="register();" class="btn float-right login_btn">Create
+                                    </button>
                                 </div>
                             </div>
                         </form>

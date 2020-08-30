@@ -49,14 +49,7 @@ html .fc,
   padding: 15px 10px 0px;
 }
 
-.fc-header-left {
-  width: 25%;
-  text-align: left;
-}
 
-.fc-header-center {
-  text-align: center;
-}
 
 .fc-header-right {
   width: 25%;
@@ -197,7 +190,7 @@ span.fc-button {
 
 .fc-text-arrow {
   margin: 0 0.4em;
-  font-size: 2em;
+  font-size: 4em;
   line-height: 23px;
   vertical-align: baseline; /* for IE7 */
 }
@@ -459,6 +452,7 @@ table.fc-border-separate {
 .fc-grid .fc-day-content {
   clear: both;
   padding: 2px 2px 1px; /* distance between events and day edges */
+  height:30px;
 }
 
 /* event styles */

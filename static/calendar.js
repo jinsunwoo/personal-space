@@ -64,7 +64,7 @@
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         buttonText: {
             prev: "<span class='fc-text-arrow'>&#8592;</span>",
-            next: "<span class='fc-text-arrow'>&#8594;</span>",
+            next: "<span class='fc-text-arrow'>&#8594</span>",
             prevYear: "<span class='fc-text-arrow'>«</span>",
             nextYear: "<span class='fc-text-arrow'>»</span>",
             today: 'today',
@@ -2377,7 +2377,7 @@ function enableTextSelection(element) {
 
             html +=
                 "<div class='fc-day-content'>" +
-                "<div style='position:relative'>&nbsp;</div>" +
+                "<div style='position:relative;height:45px;>&nbsp;</div>" +
                 "</div>" +
                 "</div>" +
                 "</td>";
@@ -2951,7 +2951,7 @@ function enableTextSelection(element) {
                     "<tr>" +
                     "<th class='" + headerClass + " fc-agenda-axis'>" + opt('allDayText') + "</th>" +
                     "<td>" +
-                    "<div class='fc-day-content'><div style='position:relative'/></div>" +
+                    "<div class='fc-day-content'><div style='position:relative; height: 45px;'/></div>" +
                     "</td>" +
                     "<th class='" + headerClass + " fc-agenda-gutter'> </th>" +
                     "</tr>" +
@@ -3141,7 +3141,7 @@ function enableTextSelection(element) {
                     "<td class='" + classNames.join(' ') + "'>" +
                     "<div>" +
                     "<div class='fc-day-content'>" +
-                    "<div style='position:relative'> </div>" +
+                    "<div style='position:relative;height:45px;'> </div>" +
                     "</div>" +
                     "</div>" +
                     "</td>";
