@@ -53,9 +53,7 @@
                     success: function (response) {
                         if (response["result"] == "success") {
                             {# alert("다이어리 저장됨");#}
-                            // 3. 성공 시 페이지 새로고침하기
                             window.location.href = "/main";
-
                         } else {
                             alert("Error from write2.html")
                         }
@@ -424,10 +422,6 @@
             function execCommandWithArg(command, arg) {
                 richTextField.document.execCommand(command, false, arg);
             }
-
-
         </script>
-
-
     </body>
 </html>

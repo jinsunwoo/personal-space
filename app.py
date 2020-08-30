@@ -9,7 +9,7 @@ import bcrypt
 app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)
-db = client.ps2  # dbpersonalspace 라는 이름의 db 만듬
+db = client.personalspace  # dbpersonalspace 라는 이름의 db 만듬
 
 SECRET_KEY = 'apple'
 import jwt
@@ -195,10 +195,6 @@ def api_register():
         return jsonify({'result': 'idTaken','msg':'That ID is already taken. Use another ID.'})
 
 
-
-
-
-
 # log in part
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -232,26 +228,18 @@ def api_login():
 
 @app.route('/api/userid', methods=['GET'])
 def api_valid():
-    # 토큰을 주고 받을 때는, 주로 header에 저장해서 넘겨주는 경우가 많습니다.
-    # header로 넘겨주는 경우, 아래와 같이 받을 수 있습니다.
     token_receive = request.headers['token_give']
 
-    # try / catch 문?
-    # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
-
     try:
-        # token을 시크릿키로 디코딩합니다.
-        # 보실 수 있도록 payload를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload와 같은 것이 나옵니다.
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         print(payload)
 
-        # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
-        # 여기에선 그 예로 닉네임을 보내주겠습니다.
         userinfo = db.user.find_one({'id': payload['id']}, {'_id': 0})
         return jsonify({'result': 'success', 'userID': userinfo['id']})
     except jwt.ExpiredSignatureError:
-        # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
+
         return jsonify({'result': 'fail', 'msg': 'Logged in session is over. Try logging in again'})
+
 
 @app.route('/forgotpw2', methods=['POST'])
 def forgotpw2():
@@ -262,6 +250,7 @@ def forgotpw2():
         return jsonify({'result': 'success'})
     else:
         return jsonify({'result': 'fail','msg':'No such ID or Email. Try again.'})
+
 
 @app.route('/forgotpw3', methods=['POST'])
 def forgotpw3():
@@ -276,6 +265,7 @@ def forgotpw3():
     # user_doc = {'id': id_receive, 'email': user_email, 'pw': pw_hash}
     db.user.update_one({'id': id_receive}, {"$set": {'pw':pw_hash}})
     return jsonify({'result': 'success'})
+
 
 @app.route('/forgotID', methods=['POST'])
 def forgotID():

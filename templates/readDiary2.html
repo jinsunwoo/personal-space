@@ -172,7 +172,7 @@
 
                             }
                         } else {
-                            alert("다이어리 리스트를 받아오지 못함");
+                            alert("Cannot read your diary calendar");
                         }
                     }
                 })
@@ -208,20 +208,13 @@
                 window.location.href = "{{ url_for('writeEdit') }}" + query_params;
             }
 
-            {# 전체 총괄 js 파일에 넣기 #}
-
             function deleteDiary(date, emotion) {
-                {#console.log(date);
-                console.log(emotion);#}
                 $.ajax({
                     type: "POST",
                     url: "/deleteDiary",
                     data: {'date_give': date, 'emotion_give': emotion},
                     success: function (response) {
                         if (response['result'] == 'success') {
-                            // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
-                           {# alert('삭제 완료! 안녕!')#}
-                            // 3. 변경된 정보를 반영하기 위해 새로고침합니다.
                             window.location.href = "/main";
                         } else {
                             alert('error from delete function in readDiary2.html')
