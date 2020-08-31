@@ -38,7 +38,6 @@
             let userID;
             $(document).ready(function () {
                 load_user_info();
-
                 function load_user_info() {
                     $.ajax({
                         type: "GET",
@@ -62,7 +61,6 @@
                         }
                     })
                 }
-
                 function readCalendar(userID) {
                     $.ajax({
                         type: "GET",
@@ -337,18 +335,6 @@
                 padding-top: 12px;
             }
 
-            .fc-header-top-center {
-                width: 40%;
-            }
-
-            .fc-header-left {
-                width: 45%;
-                text-align: left;
-            }
-
-            .fc-header-center {
-                text-align: center;
-            }
 
             .end {
                 width: 100%;
@@ -389,7 +375,7 @@
         <div class="end"></div>
 
 
-        <script type="text/javascript" src="../static/calendar.js"></script>
+        <script type="text/javascript" src="../static/newcalendar.js"></script>
 
     </body>
 </html>

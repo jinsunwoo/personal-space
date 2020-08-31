@@ -66,6 +66,16 @@
                 margin-left: 15px;
             }
 
+            #fbtn {
+                margin-left: 10px;
+            }
+
+            .align_two_buttons3 {
+                display: flex;
+                padding-left: 15px;
+                padding-top: 35px;
+            }
+
 
         </style>
         <script>
@@ -121,16 +131,14 @@
 
                             </div>
 
-                            <div class="align_two_buttons">
+                            <div class="align_two_buttons3">
                                 <div class="form-group change-posi">
-
-                                    <button class="btn float-right login_btn"
-                                            formaction="{{ url_for('loginpage') }}">Back
+                                    <button onclick="forgotpw();" id="fbtn" class="btn float-right login_btn">Next
                                     </button>
-
                                 </div>
                                 <div class="form-group change-posi">
-                                    <button onclick="forgotpw();" class="btn float-right login_btn">Next
+                                    <button class="btn float-right login_btn" id="fbtn"
+                                            formaction="{{ url_for('loginpage') }}">Back
                                     </button>
                                 </div>
                             </div>
