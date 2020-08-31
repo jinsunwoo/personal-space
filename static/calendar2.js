@@ -64,7 +64,7 @@
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         buttonText: {
             prev: "<span class='fc-text-arrow'>&#8592;</span>",
-            next: "<span class='fc-text-arrow'>&#8594</span>",
+            next: "<span class='fc-text-arrow'>&#8594;</span>",
             prevYear: "<span class='fc-text-arrow'>«</span>",
             nextYear: "<span class='fc-text-arrow'>»</span>",
             today: 'today',
@@ -740,7 +740,6 @@
 
 
         function renderSection(position) {
-            //return null;
             var e = $("<td class='fc-header-" + position + "'/>");
             var buttonStr = options.header[position];
             if (buttonStr) {
@@ -750,11 +749,6 @@
                     }
                     var prevButton;
                     $.each(this.split(','), function (j, buttonName) {
-                        //console.log(buttonName)
-                        if (buttonName === "agendaDay" || buttonName === "agendaWeek" || buttonName === "month") {
-                            return null;
-                        }
-                        ;
                         if (buttonName == 'title') {
                             e.append("<span class='fc-header-title'><h2> </h2></span>");
                             if (prevButton) {
@@ -2378,7 +2372,7 @@ function enableTextSelection(element) {
 
             html +=
                 "<div class='fc-day-content'>" +
-                "<div style='position:relative;height:45px;>&nbsp;</div>" +
+                "<div style='position:relative'> </div>" +
                 "</div>" +
                 "</div>" +
                 "</td>";
@@ -2952,7 +2946,7 @@ function enableTextSelection(element) {
                     "<tr>" +
                     "<th class='" + headerClass + " fc-agenda-axis'>" + opt('allDayText') + "</th>" +
                     "<td>" +
-                    "<div class='fc-day-content'><div style='position:relative; height: 45px;'/></div>" +
+                    "<div class='fc-day-content'><div style='position:relative'/></div>" +
                     "</td>" +
                     "<th class='" + headerClass + " fc-agenda-gutter'> </th>" +
                     "</tr>" +
@@ -3142,7 +3136,7 @@ function enableTextSelection(element) {
                     "<td class='" + classNames.join(' ') + "'>" +
                     "<div>" +
                     "<div class='fc-day-content'>" +
-                    "<div style='position:relative;height:45px;'> </div>" +
+                    "<div style='position:relative'> </div>" +
                     "</div>" +
                     "</div>" +
                     "</td>";
