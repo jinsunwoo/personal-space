@@ -12,17 +12,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
               integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
               crossorigin="anonymous">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-              id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href="../static/calendar.css">
-        <!--for caledar bootstrap-->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-              id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
         <!--for js-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
@@ -61,6 +50,7 @@
                         }
                     })
                 }
+
                 function readCalendar(userID) {
                     $.ajax({
                         type: "GET",
@@ -322,7 +312,6 @@
             }
 
 
-
             #chart {
                 max-width: 1100px;
                 margin: 45px auto;
@@ -341,6 +330,22 @@
                 height: 100px;
                 background-color: steelblue;
             }
+
+            /* arrow css, just pasted here to see change */
+            .fc-text-arrow {
+                margin: 0 0.4em;
+                font-size: 3em;
+                line-height: 25px;
+                vertical-align: baseline; /* for IE7 */
+            }
+
+            .fc-button-prev .fc-text-arrow,
+            .fc-button-next .fc-text-arrow {
+                /* for ‹ › */
+                font-weight: bold;
+            }
+
+
         </style>
     </head>
     <body>
