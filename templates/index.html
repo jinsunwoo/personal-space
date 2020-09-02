@@ -46,9 +46,7 @@
             .container {
                 width: 500px;
                 height: 350px;
-                margin-left: 470px;
-                margin-top: 0px;
-
+                margin: auto;
             }
 
             .login_btn {
@@ -80,7 +78,6 @@
                                 // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
                                 // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
                                 $.cookie('mytoken', response['token']);
-                                alert('Welcome ' + user_id)
                                 window.location.href = '/main'
                             } else {
                                 // 로그인이 안되면 에러메시지를 띄웁니다.
@@ -106,7 +103,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" id="userid" class="form-control" placeholder="ID">
+                                <input type="text" id="userid" autocomplete="off" class="form-control" placeholder="ID">
 
                             </div>
                             <div class="input-group form-group">

@@ -70,8 +70,8 @@
         </style>
         <script>
             const cat = localStorage.getItem('myID2');
+
             function change() {
-                alert('hi');
                 let new_pw = $('#newpw').val();
                 let new_repw = $('#newrepw').val();
                 if (new_pw == "") {
@@ -79,17 +79,17 @@
                 } else if (new_repw == "") {
                     alert('Enter new password reconfirmation');
                 } else if (new_pw !== new_repw) {
-                    alert ('New password does not match with the reconfirmed');
+                    alert('New password does not match with the reconfirmed');
                 } else {
                     localStorage.removeItem('myID2');
                     $.ajax({
                         type: "POST",
                         url: "forgotpw3",
-                        data: {pw_give: new_pw,id_give: cat},
+                        data: {pw_give: new_pw, id_give: cat},
                         success: function (response) {
                             if (response['result'] == 'success') {
                                 localStorage.removeItem('myID2');
-                                alert('Your password is reset now. Try log in with new password.')
+                                alert('Your password is reset now. Try logging in with new password.')
                                 window.location.href = '{{ url_for('loginpage') }}'
                             } else {
                                 localStorage.removeItem('myID2');
@@ -127,14 +127,15 @@
                             </div>
                             <div class="align_two_buttons">
                                 <div class="form-group change-posi">
+                                    <button onclick="change()" class="btn float-right login_btn">Reset
+                                    </button>
+                                </div>
+                                <div class="form-group change-posi">
                                     <button class="btn float-right login_btn"
                                             formaction="{{ url_for('forgotpw') }}">Back
                                     </button>
                                 </div>
-                                 <div class="form-group change-posi">
-                                    <button onclick="change()" class="btn float-right login_btn">Reset
-                                    </button>
-                                </div>
+
                             </div>
                         </form>
                     </div>

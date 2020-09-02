@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+              rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css"
+              rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+              rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="https://kit.fontawesome.com/f48ba3e534.js" crossorigin="anonymous"></script>
+
+        <script>
+            $(function () {
+                var bindDatePicker = function () {
+                    $(".date").datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-arrow-up",
+                            down: "fa fa-arrow-down"
+                        }
+                    }).find('input:first').on("blur", function () {
+                        // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
+                        // update the format if it's yyyy-mm-dd
+                        var date = parseDate($(this).val());
+
+                        if (!isValidDate(date)) {
+                            //create date based on momentjs (we have that)
+                            date = moment().format('YYYY-MM-DD');
+                        }
+
+                        $(this).val(date);
+                    });
+                }
+
+                var isValidDate = function (value, format) {
+                    format = format || false;
+                    // lets parse the date to the best of our knowledge
+                    if (format) {
+                        value = parseDate(value);
+                    }
+
+                    var timestamp = Date.parse(value);
+
+                    return isNaN(timestamp) == false;
+                }
+
+                var parseDate = function (value) {
+                    var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+                    if (m)
+                        value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+                    return value;
+                }
+
+                bindDatePicker();
+            });
+
+            function saveDiary() {
+                let date = $('#dateitself').val();
+                let emotion;
+                let checkboxes = $('input:checkbox');
+                for (let i = 0; i < checkboxes.length; i++) {
+                    let checkbox = checkboxes[i];
+                    if (checkbox.checked) {
+                        emotion = checkbox.value;
+                        console.log(emotion)
+                    }
+                }
+                let diary = richTextField.document.getElementsByTagName('body')[0].innerHTML;
+
+                if (date == "") {
+                    alert("Select date")
+                    return;
+                } else if (!(emotion == "😍" || emotion == "😆" || emotion == "🙂" || emotion == "🙁" || emotion == "😢" || emotion == "😭" || emotion == "😱" || emotion == "😡")) {
+                    alert("Choose your feeling today")
+                    return;
+                } else if (diary == "") {
+                    alert("Write something!")
+                    return;
+                }
+
+                const cat = localStorage.getItem('myID');
+                {# <!--if any of three is empty return any error message-->#}
+                $.ajax({
+                    type: "POST",
+                    url: "/saveDiary",
+                    data: {date_give: date, emotion_give: emotion, diary_give: diary, id_give: cat},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            {#alert("다이어리 저장됨");#}
+                            window.location.href = "/main";
+                        } else {
+                            alert("Error from write3.html")
+                        }
+                    }
+                })
+            }
+
+            function toMain() {
+                window.location.href = '{{url_for('main')}}'
+            }
+
+
+        </script>
+        <style>
+            html, body {
+                background-color: lightsteelblue;
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .empty-field {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            /* Just for styling */
+            .styling {
+                border-radius: 5px;
+                padding: 10px;
+                text-align: center;
+                margin-top: 15px;
+                margin-bottom: 20px;
+            }
+
+
+            .accordion-toggle {
+                display: none;
+
+
+            }
+
+            #dateitself {
+                font-size: 17px;
+            }
+
+            .empty-field {
+                height: 100px;
+                background-color: steelblue;
+            }
+
+            #myFrame {
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+
+            .richtext {
+                margin-top: 50px;
+                margin-left: 260px;
+            }
+
+            .rich-icons {
+                margin-bottom: 10px;
+                padding-left: 10px;
+                display: flex;
+                font-size: 17px;
+
+            }
+
+            .text-control {
+                display: flex;
+                padding-left: 15px;
+                padding-top: 12px;
+                font-size: 18px;
+            }
+
+            .icon-bar {
+                padding-top: 10px;
+            }
+
+            .login_btn {
+                color: black;
+                background-color: lightgray;
+                width: 100px;
+                margin-top: 30px;
+                margin-right: 35px;
+                padding: 8px;
+                height: 37px;
+                border-radius: 5px;
+                font-size: 15px;
+            }
+
+            .login_btn:hover {
+                color: black;
+                background-color: white;
+            }
+
+            .container {
+                position: relative;
+                cursor: pointer;
+                font-size: 33px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                width: 80px;
+                height: 40px;
+
+
+            }
+
+            /* Hide the browser's default checkbox */
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0px;
+            }
+
+            /* Create a custom checkbox */
+            .checkmark {
+                position: absolute;
+                top: 5px;
+                left: 0;
+                height: 23px;
+                width: 23px;
+
+                background-color: white;
+                border-radius: 15px;
+
+            }
+
+            /* On mouse-over, add a grey background color */
+            .container:hover input ~ .checkmark {
+                background-color: #ccc;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            .container input:checked ~ .checkmark {
+                background-color: steelblue;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the checkmark when checked */
+            .container input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            /* Style the checkmark/indicator */
+            .container .checkmark:after {
+                left: 9px;
+                top: 5px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            .emoji-today {
+                display: flex;
+                justify-content: center;
+                padding-top: 10px;
+            }
+
+            .emoji-field {
+                text-align: center;
+                padding: 0px 100px;
+                margin: 0px 255px;
+                height: 140px;
+                padding-top: 15px;
+                border-radius: 5px;
+
+            }
+
+
+        </style>
+
+    </head>
+    <body onload="enabledEditMode();">
+
+        <div class="empty-field">
+            <div id="2save">
+                <input onclick="saveDiary()" type="submit" value="Save" class="btn float-right login_btn">
+            </div>
+            <div id="2main">
+                <input onclick="toMain()" type="button" value="Main" class="btn float-right login_btn">
+            </div>
+        </div>
+
+        <div class="row styling">
+            <h4> Select Date: </h4>
+            <div class='col-sm-offset-4 col-sm-4'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control input-lg" id="dateitself"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="emoji-field jumbotron">
+            <h4> Today I feel :</h4>
+            <div class="emoji-today">
+
+                <label class="container">
+                    <input type="checkbox" value="😍">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😍</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="😆">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😆</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="🙂">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;🙂</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="🙁">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;🙁</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="😢">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😢</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="😭">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😭</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="😱">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😱</span>
+                </label>
+                <label class="container">
+                    <input type="checkbox" value="😡">
+                    <span class="checkmark">&nbsp;&nbsp;&nbsp;&nbsp;😡</span>
+                </label>
+                <script>
+                    $(document).ready(function () {
+                        $('input:checkbox').click(function () {
+                            $('input:checkbox').not(this).prop('checked', false);
+                            let checkboxes = $('input:checkbox');
+                            for (let i = 0; i < checkboxes.length; i++) {
+                                let checkbox = checkboxes[i];
+                                if (checkbox.checked) {
+                                    console.log(checkbox.value);
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="richtext">
+            <div class="rich-icons">
+                <div class="icon-bar">
+                    <button onclick="execCmd('bold');"><i class="fa fa-bold"></i></button>
+                    <button onclick="execCmd('italic');"><i class="fa fa-italic"></i></button>
+                    <button onclick="execCmd('underline');"><i class="fa fa-underline"></i></button>
+                    <button onclick="execCmd('justifyLeft');"><i class="fa fa-align-left"></i></button>
+                    <button onclick="execCmd('justifyCenter');"><i class="fa fa-align-center"></i></button>
+                    <button onclick="execCmd('justifyRight');"><i class="fa fa-align-right"></i></button>
+                    <button onclick="execCmd('insertUnorderedList');"><i class="fa fa-list-ul"></i></button>
+                    <button onclick="execCmd('insertOrderedList');"><i class="fa fa-list-ol"></i></button>
+                    <button onclick="execCmd('insertHorizontalRule');">HR</button>
+                    <select onchange="execCommandWithArg('fontName',this.value);">
+                        <option value="Arial">Arial</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Courier">Courier</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+                    <select onchange="execCommandWithArg('fontSize',this.value);">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+                <div class="text-control">
+                    Fore Color:&nbsp;&nbsp;<input type="color" onchange="execCommandWithArg('foreColor',this.value);">
+                    <h6>&nbsp&nbsp&nbsp;&nbsp;</h6>
+                    Background:&nbsp;&nbsp;<input type="color" onchange="execCommandWithArg('hiliteColor',this.value);">
+
+                </div>
+
+
+            </div>
+            <iframe id="myFrame" name="richTextField"
+                    style="padding: 10px; width: 930px; height: 500px; background-color: #dddddd"></iframe>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <script type="text/javascript">
+            function enabledEditMode() {
+                richTextField.document.designMode = 'On';
+            }
+
+            function execCmd(command) {
+                richTextField.document.execCommand(command, false, null);
+            }
+
+            function execCommandWithArg(command, arg) {
+                richTextField.document.execCommand(command, false, arg);
+            }
+        </script>
+
+
+    </body>
+</html>

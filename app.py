@@ -39,7 +39,7 @@ def main():
 
 @app.route('/write')
 def write():
-    return render_template('write.html')
+    return render_template('write3.html')
 
 @app.route('/forgotpw')
 def forgotpw():
@@ -75,10 +75,8 @@ def writeEdit():
     emotion = diary_entry["emotion"]
     words = diary_entry["diary"]
 
-    print(words)
-
     # breakpoint()
-    return render_template('write2.html', date=date, emotion=emotion, words=words, _id=_id)
+    return render_template('write4.html', date=date, emotion=emotion, words=words, _id=_id)
 
 
 # /readDiary?date=20200822
@@ -212,7 +210,7 @@ def api_login():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=10)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=2)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
