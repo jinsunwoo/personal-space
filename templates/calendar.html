@@ -55,6 +55,7 @@
                             for (let i = 0; i < diaries.length; i++) {
                                 let date = diaries[i]['date']
                                 let emoji = diaries[i]['emotion'];
+
                                 let event = {
                                     title: emoji,
                                     start: date,
@@ -118,6 +119,7 @@
                 background-color: lightsteelblue;
                 margin: 0;
                 font-size: 30px;
+                overflow-x: hidden;
 
             }
 
@@ -162,7 +164,7 @@
 
             .imgSize {
                 height: 320px;
-                width: 400px;
+                width: 450px;
             }
 
             .logo {
@@ -170,6 +172,7 @@
                 justify-content: center;
                 background-color: white;
                 padding: 5px;
+                width: 100%;
             }
 
             .login_btn {
@@ -181,7 +184,7 @@
                 padding: 8px;
                 height: 45px;
                 border-radius: 10px;
-                border-color: steelblue;
+                border-color: slategray;
                 font-size: 16px;
             }
 
@@ -192,18 +195,18 @@
             }
 
             .mainpage {
-
+                margin-top: 70px;
                 width: 100%;
                 height: 850px;
-                text-align: center;
                 padding-top: 80px;
 
             }
 
             .three-btns {
                 display: flex;
-                margin-left: 975px;
+                float: right;
                 padding-top: 12px;
+                padding-right: 30px;
             }
 
             .end {
@@ -220,6 +223,7 @@
                 font-weight: lighter;
                 color: lightgray;
             }
+
         </style>
     </head>
     <body>

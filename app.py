@@ -75,6 +75,7 @@ def writeEdit():
     emotion = diary_entry["emotion"]
     words = diary_entry["diary"]
 
+
     # breakpoint()
     return render_template('write4.html', date=date, emotion=emotion, words=words, _id=_id)
 
@@ -127,9 +128,10 @@ def save_diary():
     emotion_receive = request.form['emotion_give']
     diary_receive = request.form['diary_give']
     id_receive = request.form['id_give']
+    weight_receive = request.form['weight_give']
     # print(date_receive)
     # print(emotion_receive)
-    diary_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': diary_receive,'userID':id_receive}
+    diary_doc = {'date': date_receive, 'emotion': emotion_receive, 'diary': diary_receive,'userID':id_receive,'weight':weight_receive}
 
     diary_id = request.form.get("diary_id")
 
